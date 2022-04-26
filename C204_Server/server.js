@@ -1,17 +1,96 @@
-// 1. 서버 사용을 위해서 http 모듈을 http 변수에 담는다. (모듈과 변수의 이름은 달라도 된다.) 
-var http = require('http'); 
+const WebSocket = require('ws') 
+const wss= new WebSocket.Server({ port: 8000 },()=>{ 
+    console.log('서버 시작') 
+}) 
 
-// 2. http 모듈로 서버를 생성한다.
-//    아래와 같이 작성하면 서버를 생성한 후, 사용자로 부터 http 요청이 들어오면 function 블럭내부의 코드를 실행해서 응답한다.
-var server = http.createServer(function(request,response){ 
-
-    response.writeHead(200,{'Content-Type':'text/html'});
+wss.on('connection', function connection(ws) { 
     console.log('접속');
-    response.end('Hello node.js!!');
+    ws.on('message', (data) => { 
+        console.log('받은 데이터 : %o', data) 
+        ws.send(data); 
+    })
+        
+    ws.on('close', function close() {
+        console.log('접속해제');
+    })
+})
 
-});
 
-// 3. listen 함수로 8080 포트를 가진 서버를 실행한다. 서버가 실행된 것을 콘솔창에서 확인하기 위해 'Server is running...' 로그를 출력한다
-server.listen(8080, function(){ 
-    console.log('Server is running...');
-});
+wss.on('listening',()=>{ 
+    console.log('리스닝 ...') 
+})
+
+// const socketIO = require('socket.io')(5000);
+
+// console.log('Server Start : port 5000');
+
+// socketIO.on('connection', function(socket) {
+//     console.log('Player Connected');
+
+//     socketIO.emit('PlayerConnected');
+
+//     socketIO.on('disconnect', function() {
+//         console.log('A player disconnected');
+//     })
+// })
+
+
+// var express = require('express');
+// var app = express();
+// var http = require('http'); 
+// var server = http.createServer(app);
+// var { Server } = require("socket.io");
+// var io = new Server(server);
+// var ip = require('ip');
+
+// // const socketIO = require('socket.io')(5000);
+
+// app.get('/', (req, res) => {
+//     res.sendFile(__dirname + '/index.html');
+// });
+
+// // DNS domain name system
+// // www.ssafytown.ssafy.io
+// const host = ip.address()
+// console.log(host)
+
+// io.on('connection', (socket) => {
+//     console.log('a user connected');
+
+//     socket.on('chat message', (msg) => {
+//         io.emit('chat message', msg);
+//         console.log('message: ' + msg);
+//     });
+    
+//     socket.on('disconnect', () => {
+//         console.log('user disconnected');
+//     });
+// });
+
+// server.listen(7777, () => {
+//     console.log('listening on *:7777');
+// });
+
+
+// const server = http.createServer(function(request,response){ 
+
+//     response.writeHead(200,{'Content-Type':'text/html'});
+//     console.log('접속');
+//     response.end('Hello node.js!!');
+
+// });
+
+// server.listen(8080, function(){ 
+//     console.log('Server is running...');
+// });
+
+
+// socketIO.on('connection', function(socket) {
+//     console.log('Player Connected');
+
+//     socketIO.emit('PlayerConnected');
+
+//     socketIO.on('disconnect', function() {
+//         console.log('A player disconnected')
+//     })
+// })
