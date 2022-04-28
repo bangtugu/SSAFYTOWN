@@ -1557,3 +1557,393 @@
       $('#messages').append($'<li>').text(str);
     });
   </script>
+
+
+
+##### * 데이터베이스
+
+- 관련성을 가지며 중복이 없는 데이터들의 집합
+- DBMS : 데이터베이스를 관리하는 시스템
+- RDBMS : 관계형 데이터베이스를 관리하는 시스템
+- 서버의 하드 디스크나  SSD 등의 저장 매체에 데이터를 저장
+- 서버 종료 여부와 상관 없이 데이터를 계속 사용가능
+- 여러 사람이 동시에 접근할 수 있고, 권한을 따로 줄 수 있음
+
+- 콘솔(CMD)에서 MySQL이 설치된 경로로 이동
+  - 기본 경로는 `C:\Program Files\MySQL\MySQL Server 버젼\bin`
+  - 편의를 위해 기본 경로를 환경변수로 등록해준다
+-  MySQL Prompt 실행 : `mysql -h localhost -u root -p`
+  - -h는 호스트, -u는 사용자, -p는 비밀번호
+  - `exit` : MySQL 빠져나오는 명령어
+
+- DB 생성 : `CREATE SCHEMA DB이름;`
+  - ex) `CREATE SCHEMA `nodejs` DEFAULT CHARACTER SET utf8;`
+
+- DB 선택 : `user DB이름;`
+  - ex) `user nodejs;`
+- Table  생성 : `CREATE TABLE DB이름.TABLE이름(OPTIONS)`
+
+
+
+##### * [시퀄라이즈 ORM](https://sequelize.org/docs/v6/)
+
+- MySQL 작업을 쉽게 할 수 있도록 도와주는 라이브러리
+
+  - ORM : Object Relational Mapping : 객체와 데이터를 Mapping (1:1)
+  - MySQL 외에도 다른 RDB(Maria, SQLite, MSSQL)와 호환가능
+  - 자바스크립트 문법으로 DB 조각 가능
+
+- 시퀄라이즈에서는 1:N관계에서 참조당하는 쪽을 hasMany로 표현
+
+  - 반대의 입장(다른 Table의 column을 참조하는 쪽)에서는 belongsTo(속해있다)로 표현
+
+  - belongsTo상태인 Table에 foreignKey column이 생긴다
+
+  - `1 :  N => belongsTo : hasMany`
+
+    ```javascript
+    // foreignKey가 targetKey를 참조할 것이다
+    // belongsTo인 Table쪽에 foreignKey가 생성된다
+    static associate(db) {
+      db.Table이름.belongsTo(db.Table이름, { foreignKey: "", targetKey: ""});
+    }
+      
+    // foreignKey가 sourceKey를 참조하고 있다
+    static associate(db) {
+      db.Table이름.hasMany(db.Table이름, { foreignKey: "", sourceKey: ""});
+    }
+    ```
+
+    ![image-20220428152356009](nodeJS.assets/image-20220428152356009.png)
+
+- 시퀄라이즈에서는 1:N관계에서 참조당하는 쪽을 hasOne로 표현
+
+  - 반대의 입장(다른 Table의 column을 참조하는 쪽)에서는 belongsTo(속해있다)로 표현
+
+  <img src="nodeJS.assets/image-20220428153516313.png" alt="image-20220428153516313" style="zoom:67%;" />
+
+- DB특성상 다대다(N:M) 관계는 중간 테이블이 생긴다
+
+  - 두 테이블 모두 중간 테이블을 참조하므로 belongsToMany
+
+  - ex) Post와 Hashtag의 관계
+
+    ![image-20220428154016100](nodeJS.assets/image-20220428154016100.png)
+
+- 시퀄라이즈 명령어 사용하기 위한 sequelize-cli 설치
+
+  - mysql2는 MySQL DB가 아닌 드라이버(NodeJS와 MySQL 이어주는 역할)
+  - sequelize-cli : sequelize 명령어 사용할 수 있게해주는 package
+  - sequelize : sequelize  본체
+  - `npm i express morgan nunjucks sequelize sequelize-cli mysql2`
+  - `npm i -D nodemon`
+
+- 시퀄라이즈 구조 생성
+
+  - `npx sequelize init`
+
+    - sequelize-cli으로부터 명령어가 가능해진다
+    - config, models, migrations, seeders foler들이 생성된다
+
+  - models 폴더의 index.js
+
+    - mysql squelize nodejs 연동
+
+      ```javascript
+      const Sequelize = require('sequelize');
+      
+      const env = process.env.NODE_ENV || 'development';
+      const config = require('../config/config')[env];
+      const db = {};
+      
+      const sequelize = new Sequelize(config.database, config.username, config.password, config); // 연결 객체
+      
+      db.sequelize = sequelize;
+      db.Sequelize = Sequelize;
+      
+      module.exports = db;
+      ```
+
+  - config폴더에서 config.json에서 `username`, `database`, `password`를 연동하려는 DB의 값으로 설정해준다
+
+- app.js작성해서 sequelize.sync로 연결
+
+  ```javascript
+  const express = require('express');
+  const path = require('path');
+  const morgan = require('morgan');
+  const nunjucks = require('nunjucks');
+  
+  const { sequelize } = require('./models');
+  
+  const app = express();
+  app.set('port', process.env.PORT || 3001);
+  app.set('view engine', 'html');
+  nunjucks.configure('views', {
+    express: app,
+    watch: true,
+  });
+  
+  // sync를 통해서 node에서 database로 연결이 가능
+  sequelize.sync({ force: false })
+    .then(() => {
+      console.log('데이터베이스 연결 성공');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  
+  app.use(morgan('dev'));
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  
+  app.use('/', indexRouter);
+  
+  app.use((req, res, next) => {
+    const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
+    error.status = 404;
+    next(error);
+  });
+  
+  app.use((err, req, res, next) => {
+    res.locals.message = err.message;
+    res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');
+  });
+  
+  app.listen(app.get('port'), () => {
+    console.log(app.get('port'), '번 포트에서 대기 중');
+  });
+
+- 연결 테스트 : `npm start`
+  - `SELECT 1+1 AS RESULT`가 나오면 연결 성공
+
+
+
+##### * 모델(테이블) 생성
+
+- `models`폴더의 `Table이름.js`파일에서 Code로 Table생성
+
+- 생성된 Table은 `models`폴더의 `index.js`에서 추가
+
+  - ex) user와 comment Table추가
+
+    - 두 테이블은 관계성 Table
+
+    ```javascript
+    const Sequelize = require('sequelize');
+    const User = require('./user'); // 추가된 코드
+    const Comment = require('./comment'); // 추가된 코드
+    
+    const env = process.env.NODE_ENV || 'development';
+    const config = require('../config/config')[env];
+    const db = {};
+    
+    const sequelize = new Sequelize(config.database, config.username, config.password, config);
+    
+    db.sequelize = sequelize;
+    db.Sequelize = Sequelize;
+    
+    db.User = User; // 추가된 코드
+    db.Comment = Comment; // 추가된 코드
+    
+    User.init(sequelize); // init으로 sequelize와 연결, 추가된 코드
+    Comment.init(sequelize); // 추가된 코드
+    
+    User.associate(db); // 관계설정
+    Comment.associate(db); // 관계설정
+    
+    module.exports = db;
+
+- Sequelize은 id column을 자동으로 만들어준다
+
+  - id column 생략가능
+
+- Sequelize와 MYSQL에서의 표현차이가 있다
+
+  - Sequelize에서 여러개의 DB를 지원해주기 때문이다
+
+    ![image-20220428151429796](nodeJS.assets/image-20220428151429796.png)
+
+- ex)
+
+  ```javascript
+  const Sequelize = require('sequelize');
+  
+  module.exports = class 모델이름 extends Sequelize.Model {
+    static init(sequelize){
+      return super.init({
+        // init에 column들을 정의해 넣을 수 있다
+        column이름: {
+          type: Sequelize.타입,
+          allowNull: Boolean,
+          unique: Boolean,
+          ...
+        }
+      }, {
+        // model에 대한 설정
+        sequelize,
+        timestamps: Boolean, // createdAt, updateAt 여부
+        underscored: Boolean, // sequelize에서 자동으로 만들어주는 것들에 대한 이름설정
+        paranoid: Boolean, // deleteAt(제거날짜) 여부, true일 때 soft delete
+        modelName: "모델 이름", // 보통 단수형
+        tableName: "테이블 이름", // 모델이름의 복수형
+        charset: String, // utf8mb4, utf8
+        collate: String, // utf8mb4_general_ci, utf8_general_ci
+      });
+    }
+    
+      
+    // 관계 column(foreignKey, pk)
+    // foreignKey가 targetKey를 참조할 것이다
+    // belongsTo인 Table쪽에 foreignKey가 생성된다
+    static associate(db) {
+      db.Table이름.belongsTo(db.Table이름, { foreignKey: "", targetKey: ""});
+    }
+    
+    // foreignKey가 sourceKey를 참조하고 있다
+    static associate(db) {
+      db.Table이름.hasMany(db.Table이름, { foreignKey: "", sourceKey: ""});
+    }
+  }
+
+
+
+##### * 시퀄라이즈 쿼리
+
+- Sequelize Query는 비동기
+
+  - await을 써야한다
+  - 결과값이 자바스크립트 객체
+
+- sequelize를 통해 sql query를 쓸 수 있다
+
+  - `await sequelize.query(query 문장);`
+
+  ```javascript
+  const [result, metadata] = await sequelize.query('SELECT * from comments');
+  console.log(result);
+
+- include로 JOIN과 비슷한 기능 수행이 가능(관계 엮는 것 엮을 수 있다)
+
+  - inclue로 가져오면 성능상 문제가 생길 수 있다
+
+  ```javascript
+  const user = await User.findOne({
+    include: [{
+      model: Comment,
+    }]
+  });
+  console.log(user.Comments);
+  ```
+
+- `get모델명`으로 관계 있는 데이터 로딩 가능
+
+  ```
+  const user = await User.findOne({});
+  const comments = await user.getComments();
+  console.log(comments);
+  ```
+
+- `include`, `get모델명`을 통한 관계 쿼리 메서드에도 where나 attributes 쓸 수 있다
+
+- `as`로 모델명 변경 가능
+
+- 생성 쿼리
+
+  - ex) item이 드롭되고 주인이 정해질 때
+
+    ```javascript
+    const user = await User.findOne({});
+    const item = await Item.create();
+    
+    await user.addItem(item);
+    await user.addItem(item.id);
+
+- N:M 모델은 다음과 같이 접근
+
+  - `db.sequelize.models.PostHashtag`
+
+- 수정 : `set모델명`, 삭제 : `remove모델명`
+
+- SQL과 SEQUELIZE 쿼리비교
+
+  ```javascript
+  INSERT INTO nodejs.users (name, age, married) VALUES ('zero', 24, 0);
+  const { User } = require('../models');
+  await User.create({
+    name: 'zero',
+    age: 24, 
+    married: false,
+  })
+  
+  SELECT * FROM nodejs.users;
+  await User.findAll({});
+  
+  SELECT name, married FROM nodejs.users;
+  await User.findAll({
+    attributes: ['name', 'married'],
+  });
+  
+  // 특수한 기능들 Sequelize의 Op객체에 들어있다 (gt: >, lt: <, gte: >=, lte: <=)
+  SELECT name, age FROM nodejs.users WHERE married = 1 AND age > 30;
+  const { Op } = require('sequelize');
+  const { User } = require('../models');
+  await User.findAll({
+    attributes: ['name', 'age'],
+    where: {
+      married: true,
+      age: { [Op.gt]: 30},
+    }
+  });
+  
+  SELECT id, name FROM users WHERE married = 0 OR age > 30;
+  const { Op } = require('sequelize');
+  const { User } = require('../models');
+  await User.findAll({
+    attributes: ['id', 'name'],
+    where: {
+      [Op.or]: [{ married: 0}, { age: { [Op.gt]: 30 }}],
+    },
+  });
+  
+  
+  SELECT id, name FROM users ORDER By age DESC;
+  await User.findAll({
+    attributes: ['id', 'name'],
+    order: [['age', 'DESC']],
+  });
+  
+  SELECT id, name FROM users ORDER BY age DESC LIMIT 1;
+  await User.findAll({
+    attributes: ['id', 'name'],
+    order: [['age', 'DESC']],
+    limit: 1,
+  })
+  
+  SELECT id, name FROM users ORDER BY age DESC LIMIT 1 OFFSET 1;
+  await User.findAll({
+    attributes: ['id', 'name'],
+    order: ['age', 'DESC'],
+    limit: 1,
+    offset: 1,
+  });
+  
+  // 수정
+  UPDATE nodejs.users SET comment = '바꿀 내용' WHERE id = 2;
+  await User.update({
+    comment: '바꿀 내용',
+    },{
+    where: { id: 2},
+  });
+  
+  // 삭제
+  DELTE FROM nodejs.users WHERE id = 2;
+  await User.destory({
+    where: {id: 2},
+  });
+  ```
+
+  
