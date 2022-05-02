@@ -78,13 +78,6 @@ public class PlayerController : MonoBehaviour
         
     }
     
-    // 인자를 넣으려면 먼저 사용한게 우선
-    void OnRunEvent(string a)
-    {
-        // 사운드팩?
-		Debug.Log("뚜벅 뚜벅~ {a}");
-    }
-    
     void UpdateIdle()
     {
         // 애니메이션
