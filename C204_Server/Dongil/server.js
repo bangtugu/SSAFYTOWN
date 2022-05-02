@@ -1,5 +1,5 @@
 const WebSocket = require('ws');
-const Vector2 = require('./Vector2.js'); //만들어둔 벡터2의 모듈을 받아옵니다.
+const Vector3 = require('./Vector3.js'); //만들어둔 벡터2의 모듈을 받아옵니다.
 
 //port를 선언해주고
 const port = 31012;
@@ -41,6 +41,8 @@ wsService.on("connection", socket => {
 
       if (userList[transformVO.socketId] !== undefined) { //userList에 있다면
         userList[transformVO.socketId].position = transformVO.position; //해당 user의 포지션을 클라이언트에서온 position으로 변경해줍니다.
+        userList[transformVO.socketId].rotation = transformVO.rotation;
+        // userList[transformVO.socketId].animation = transformVO.animation;
       }
       return;
     }
@@ -52,7 +54,8 @@ function connectUser(socket) {
   //transformVO의 형태로 데이터를 만들어줍니다.
   let sendData = {
     socketId: socket.id,
-    position: Vector2.zero
+    position: Vector3.zero,
+    rotation: 0,
   };
   //해당 소켓의 클라이언트에게 connect란 메시지를 보냅니다.
   socket.send(JSON.stringify({ type: "CONNECT", payload: JSON.stringify(sendData) }));
