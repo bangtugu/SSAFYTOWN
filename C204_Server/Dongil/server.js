@@ -42,7 +42,7 @@ wsService.on("connection", socket => {
       if (userList[transformVO.socketId] !== undefined) { //userList에 있다면
         userList[transformVO.socketId].position = transformVO.position; //해당 user의 포지션을 클라이언트에서온 position으로 변경해줍니다.
         userList[transformVO.socketId].rotation = transformVO.rotation;
-        // userList[transformVO.socketId].animation = transformVO.animation;
+        userList[transformVO.socketId].animation = transformVO.animation;
       }
       return;
     }
