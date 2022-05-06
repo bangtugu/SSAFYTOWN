@@ -14,6 +14,16 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
         unique: false,
       },
+      name: {
+        type: Sequelize.STRING(20),
+        allowNull: false,
+        unique: false,
+      },
+      gender: {
+        type: Sequelize.STRING(20),
+        allowNull: false,
+        unique: false,
+      },
     }, {
       // model에 대한 설정
       sequelize,
