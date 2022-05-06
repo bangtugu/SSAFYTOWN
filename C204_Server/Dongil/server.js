@@ -26,6 +26,10 @@ wsService.on("connection", socket => {
     console.log(`소켓 연결 해제`);
 
     //나갈때 목록에서 지워주기
+    let sendData = {
+      socketId: socket.id,
+    };
+    socket.send(JSON.stringify({ type: "DISCONNECT", payload: JSON.stringify(sendData) }));
     delete connectedSocket[socket.id];
     delete userList[socket.id];
   });
@@ -63,7 +67,7 @@ function connectUser(socket) {
   return sendData;
 }
 
-//200ms마다 클라이언트 전부에게 유저들의 정보를 보내줍니다.
+//100ms마다 클라이언트 전부에게 유저들의 정보를 보내줍니다.
 setInterval(() => {
   let dataList = Object.values(userList); //value만 뽑아서 dataList를 만든다
   //접속한 모든 클라이언트 소켓이 여기 들어가 있다.
