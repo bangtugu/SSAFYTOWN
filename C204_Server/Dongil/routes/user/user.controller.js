@@ -1,60 +1,87 @@
-const { User } = require("../../models");
+const User = require("../../models/user");
 
-const test = async (req, res) => {
-  if (true) {
-    return res.send("사용가능한 ID입니다.");
-  } else {
-    return res.send("중복된 ID가 존재합니다.");
-  }
-}
-
-const idcheck = async (req, res) => {
-  // const userid = req.params.userid;
-
-  // const result = await sequelize.query("SELECT * FROM USER");
-
-  // const result = await User.findOne({
-  //   where: { user_id: userid }
-  // })
-
-  if (result == null) {
-    return res.send("사용가능한 ID입니다.");
-  } else {
-    return res.send("중복된 ID입니다.");
+const idValidation = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const result = await User.findOne({ where: { user_id: userId } });
+    if (result == null) {
+      return res.status(200).send("사용가능한 ID입니다.");
+    } else {
+      return res.status(201).send("중복된 ID입니다.");
+    }
+  } catch (error) {
+    return res.status(202).send(error);
   }
 }
 
 const signup = async (req, res) => {
-  const user_id = req.body.user_id;
-  const password = req.body.password;
-  const name = req.body.name;
-  const gender = req.body.gender;
+  try {
+    const userId = req.body.userId;
+    const password = req.body.password;
+    const name = req.body.name;
+    const gender = req.body.gender;
 
-  await User.create({
-    user_id, password, name, gender
-  });
+    const result = await User.create({
+      userId, password, name, gender
+    });
 
-  res.status(202).send("회원가입 성공")
-}
-
-const login = async (req, res) => {
-  const userid = req.body.userid;
-  const userpw = req.body.userpw;
-
-  const result = await User.findOne({
-    where: { userid, userpw }
-  });
-
-  if (result == null) {
-    res.status(404).send("로그인 실패");
-  } else {
-    res.status(202).send("아이디/비밀번호를 확인해주세요");
+    if (result == null) {
+      return res.status(200).send("회원가입 성공");
+    } else {
+      return res.status(201).send("회원가입 실패");
+    }
+  } catch (error) {
+    return res.status(202).send(error);
   }
 }
 
+const login = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const password = req.body.password;
+    const result = await User.findOne({
+      where: {
+        user_id: userId, password: password
+      }
+    });
+    if (result == null) {
+      return res.status(200).send("로그인 성공");
+    } else {
+      return res.status(201).send("ID/PW를 확인해주세요");
+    }
+  } catch (error) {
+    return res.status(202).send(error);
+  }
+}
+
+// const test1 = async (req, res) => {
+
+//   const tt = req.params.tt;
+//   // const testtt = await sequelize.query("SELECT * FROM USER");
+
+//   // const testtt = await User.create({
+//   //   user_id: "hi",
+//   //   password: "test",
+//   //   name: "hi",
+//   //   gender: "tt",
+//   // });
+//   await User.findOne({ where: { user_id: "heeh" } })
+//     .then(function (data) {
+//       console.log(data);
+//       console.log("testtt");
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     })
+//   if (true) {
+//     return res.send(tt);
+//   } else {
+//     return res.send(tt);
+//   }
+// }
+
 module.exports = {
-  test,
-  idcheck,
+  idValidation,
   signup,
   login,
 }
