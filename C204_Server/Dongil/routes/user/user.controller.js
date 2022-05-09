@@ -1,9 +1,22 @@
+const Sequelize = require('sequelize');
 const User = require("../../models/user");
+
+const env = process.env.NODE_ENV || 'development';
+const config = require('../../config/config')[env];
+
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 const idValidation = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const result = await User.findOne({ where: { user_id: userId } });
+    const query = 'SELECT * FROM users WHERE user_id = :userId';
+    const result = await sequelize.query(query, {
+      replacements: {
+        userId: userId,
+        type: Sequelize.QueryTypes.SELECT
+      }
+    });
+    // const result = await User.findOne({ where: { user_id: userId } });
     if (result == null) {
       return res.status(200).send("사용가능한 ID입니다.");
     } else {
@@ -21,11 +34,22 @@ const signup = async (req, res) => {
     const name = req.body.name;
     const gender = req.body.gender;
 
-    const result = await User.create({
-      userId, password, name, gender
-    });
+    if (userId && password && name && gender) {
+      const query = 'INSERT INTO users VALUES(NULL, :userId, :password, :name, :gender)';
+      const result = await sequelize.query(query, {
+        replacements: {
+          userId: userId,
+          password: password,
+          name: name,
+          gender: gender,
+          type: Sequelize.QueryTypes.INSERT
+        }
+      });
 
-    if (result == null) {
+      // const result = await User.create({
+      //   user_id: userId, password: password, name: name, gender: gender
+      // });
+      console.log(result);
       return res.status(200).send("회원가입 성공");
     } else {
       return res.status(201).send("회원가입 실패");
@@ -39,16 +63,33 @@ const login = async (req, res) => {
   try {
     const userId = req.body.userId;
     const password = req.body.password;
-    const result = await User.findOne({
-      where: {
-        user_id: userId, password: password
+    const query = 'SELECT password FROM users WHERE user_id = :userId';
+    const result = await sequelize.query(query, {
+      replacements: {
+        userId: userId,
+        type: Sequelize.QueryTypes.SELECT
       }
     });
-    if (result == null) {
+
+    const sqlPassword = result[0][0].password;
+
+    if (sqlPassword === password) {
       return res.status(200).send("로그인 성공");
     } else {
       return res.status(201).send("ID/PW를 확인해주세요");
     }
+    // console.log(result[0][0].password)
+
+    // const result = await User.findOne({
+    //   where: {
+    //     user_id: userId, password: password
+    //   }
+    // });
+    // if (result == null) {
+    //   return res.status(200).send("로그인 성공");
+    // } else {
+    //   return res.status(201).send("ID/PW를 확인해주세요");
+    // }
   } catch (error) {
     return res.status(202).send(error);
   }
