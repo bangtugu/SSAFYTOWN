@@ -4,7 +4,7 @@ module.exports = class Game1 extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       // init에 column들을 정의해 넣을 수 있다
-      game1: {
+      score: {
         type: Sequelize.INTEGER,
         allowNull: true,
         unique: false,

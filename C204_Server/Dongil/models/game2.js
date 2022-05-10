@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 module.exports = class Game2 extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      game2: {
+      score: {
         type: Sequelize.INTEGER,
         allowNull: true,
         unique: false,
