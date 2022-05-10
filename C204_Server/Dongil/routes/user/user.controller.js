@@ -63,7 +63,7 @@ const login = async (req, res) => {
   try {
     const userId = req.body.userId;
     const password = req.body.password;
-    const query = 'SELECT password FROM users WHERE user_id = :userId';
+    const query = 'SELECT password, id FROM users WHERE user_id = :userId';
     const result = await sequelize.query(query, {
       replacements: {
         userId: userId,
@@ -72,9 +72,10 @@ const login = async (req, res) => {
     });
 
     const sqlPassword = result[0][0].password;
+    const id = result[0][0].id;
 
     if (sqlPassword === password) {
-      return res.status(200).send("로그인 성공");
+      return res.status(200).send({ id: id });
     } else {
       return res.status(201).send("ID/PW를 확인해주세요");
     }
