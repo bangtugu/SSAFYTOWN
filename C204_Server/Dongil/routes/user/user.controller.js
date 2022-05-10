@@ -12,12 +12,13 @@ const idValidation = async (req, res) => {
     const query = 'SELECT * FROM users WHERE user_id = :userId';
     const result = await sequelize.query(query, {
       replacements: {
-        userId: userId,
-        type: Sequelize.QueryTypes.SELECT
-      }
+        userId: userId
+      },
+      type: Sequelize.QueryTypes.SELECT
     });
+    console.log(result[0]);
     // const result = await User.findOne({ where: { user_id: userId } });
-    if (result == null) {
+    if (result[0] === undefined) {
       return res.status(200).send("사용가능한 ID입니다.");
     } else {
       return res.status(201).send("중복된 ID입니다.");
@@ -41,9 +42,9 @@ const signup = async (req, res) => {
           userId: userId,
           password: password,
           name: name,
-          gender: gender,
-          type: Sequelize.QueryTypes.INSERT
-        }
+          gender: gender
+        },
+        type: Sequelize.QueryTypes.INSERT
       });
 
       // const result = await User.create({
@@ -66,13 +67,13 @@ const login = async (req, res) => {
     const query = 'SELECT password, id FROM users WHERE user_id = :userId';
     const result = await sequelize.query(query, {
       replacements: {
-        userId: userId,
-        type: Sequelize.QueryTypes.SELECT
-      }
+        userId: userId
+      },
+      type: Sequelize.QueryTypes.SELECT
     });
 
-    const sqlPassword = result[0][0].password;
-    const id = result[0][0].id;
+    const sqlPassword = result[0].password;
+    const id = result[0].id;
 
     if (sqlPassword === password) {
       return res.status(200).send({ id: id });
