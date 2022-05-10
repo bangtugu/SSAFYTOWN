@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const user = require('./user')     //추가 1
+const user = require('./user');
+const score = require('./score');
+const ranking = require('./ranking');
+
 
 router.use('/user', user);
+router.use('/score', score);
+router.use('/ranking', ranking);
 
 module.exports = router;

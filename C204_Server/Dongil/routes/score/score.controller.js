@@ -9,28 +9,38 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 const game1 = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const score = req.params.score;
-    const query = 'SELECT score FROM game1 WHERE user_id = userId';
+    const score = Number(req.params.score);
+    console.log(1);
+    const query = 'SELECT score FROM game1 WHERE user_id = :userId';
     const result = await sequelize.query(query, {
+      replacements: {
+        userId: userId,
+      },
       type: Sequelize.QueryTypes.SELECT
     });
 
-    if (result[0] < score) {
-      const updateQuery = 'UPDATE game1 SET score = :score WHERE user_id = userId';
-      await sequelize.query(updateQuery, {
-        type: Sequelize.QueryTypes.UPDATE
-      });
-      return res.status(200).send("update 성공");
-    } else if (result[0] === undefined) {
-      const insertQuery = 'INSERT INTO game1 VALUES (NULL, :userId, :score)';
+    const nowScore = result[0];
+
+    if (nowScore === undefined) {
+      const insertQuery = 'INSERT INTO game1 VALUES (NULL, :score, :userId)';
       await sequelize.query(insertQuery, {
         replacements: {
-          userId: userId,
-          score: score
+          score: score,
+          userId: userId
         },
         type: Sequelize.QueryTypes.INSERT
       });
       return res.status(200).send("insert 성공");
+    } else if (nowScore.score < score) {
+      const updateQuery = 'UPDATE game1 SET score = :score WHERE user_id = :userId';
+      await sequelize.query(updateQuery, {
+        replacements: {
+          score: score,
+          userId: userId
+        },
+        type: Sequelize.QueryTypes.UPDATE
+      });
+      return res.status(200).send("update 성공");
     } else {
       return res.status(200).send("변화 없음");
     }
@@ -42,28 +52,38 @@ const game1 = async (req, res) => {
 const game2 = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const score = req.params.score;
-    const query = 'SELECT score FROM game2 WHERE user_id = userId';
+    const score = Number(req.params.score);
+    console.log(1);
+    const query = 'SELECT score FROM game2 WHERE user_id = :userId';
     const result = await sequelize.query(query, {
+      replacements: {
+        userId: userId,
+      },
       type: Sequelize.QueryTypes.SELECT
     });
 
-    if (result[0] < score) {
-      const updateQuery = 'UPDATE game2 SET score = :score WHERE user_id = userId';
-      await sequelize.query(updateQuery, {
-        type: Sequelize.QueryTypes.UPDATE
-      });
-      return res.status(200).send("update 성공");
-    } else if (result[0] === undefined) {
-      const insertQuery = 'INSERT INTO game2 VALUES (NULL, :userId, :score)';
+    const nowScore = result[0];
+
+    if (nowScore === undefined) {
+      const insertQuery = 'INSERT INTO game2 VALUES (NULL, :score, :userId)';
       await sequelize.query(insertQuery, {
         replacements: {
-          userId: userId,
-          score: score
+          score: score,
+          userId: userId
         },
         type: Sequelize.QueryTypes.INSERT
       });
       return res.status(200).send("insert 성공");
+    } else if (nowScore.score < score) {
+      const updateQuery = 'UPDATE game2 SET score = :score WHERE user_id = :userId';
+      await sequelize.query(updateQuery, {
+        replacements: {
+          score: score,
+          userId: userId
+        },
+        type: Sequelize.QueryTypes.UPDATE
+      });
+      return res.status(200).send("update 성공");
     } else {
       return res.status(200).send("변화 없음");
     }
