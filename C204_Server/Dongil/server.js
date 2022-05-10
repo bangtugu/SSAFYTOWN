@@ -24,12 +24,9 @@ wsService.on("connection", socket => {
   //클라이언트가 연결을 종료했을때 실행
   socket.on("close", () => {
     console.log(`소켓 연결 해제`);
-
+    // wsService.emit("disconnect", socket.id);
     //나갈때 목록에서 지워주기
-    let sendData = {
-      socketId: socket.id,
-    };
-    socket.send(JSON.stringify({ type: "DISCONNECT", payload: JSON.stringify(sendData) }));
+
     delete connectedSocket[socket.id];
     delete userList[socket.id];
   });
@@ -66,6 +63,14 @@ function connectUser(socket) {
 
   return sendData;
 }
+
+// function disconnectUser(socket) {
+//   let sendData = {
+//     socketId: socket.id,
+//   };
+//   console.log("함수는 들어오는데..");
+//   socket.send(JSON.stringify({ type: "DISCONNECT", payload: JSON.stringify(sendData) }));
+// }
 
 //100ms마다 클라이언트 전부에게 유저들의 정보를 보내줍니다.
 setInterval(() => {
