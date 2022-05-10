@@ -41,6 +41,9 @@ module.exports = class User extends Sequelize.Model {
   // 관계 column(foreignKey, pk)
   // foreignKey가 sourceKey를 참조하고 있다
   static associate(db) {
-    db.User.hasMany(db.Score, { foreignKey: "id", sourceKey: "id" });
+    db.User.hasMany(db.Game1, { foreignKey: "user_id", sourceKey: "user_id" });
+  }
+  static associate(db) {
+    db.User.hasMany(db.Game2, { foreignKey: "user_id", sourceKey: "user_id" });
   }
 }
