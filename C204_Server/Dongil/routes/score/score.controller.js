@@ -8,8 +8,8 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 const game1 = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const score = Number(req.params.score);
+    const userId = req.body.userId;
+    const score = Number(req.body.score);
     console.log(1);
     const query = 'SELECT score FROM game1 WHERE user_id = :userId';
     const result = await sequelize.query(query, {
@@ -51,8 +51,8 @@ const game1 = async (req, res) => {
 
 const game2 = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const score = Number(req.params.score);
+    const userId = req.body.userId;
+    const score = Number(req.body.score);
     console.log(1);
     const query = 'SELECT score FROM game2 WHERE user_id = :userId';
     const result = await sequelize.query(query, {
