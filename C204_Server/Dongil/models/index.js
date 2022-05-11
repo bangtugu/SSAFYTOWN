@@ -3,7 +3,7 @@ const User = require('./user'); // 추가된 코드
 const Game1 = require('./game1'); // 추가된 코드
 const Game2 = require('./game2'); // 추가된 코드
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 const config = require('../config/config')[env];
 const db = {};
 
