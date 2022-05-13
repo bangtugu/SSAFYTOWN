@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const { Game1, Game2 } = require("../../models");
 
 const env = process.env.NODE_ENV || 'production';
 const config = require('../../config/config')[env];
@@ -8,8 +7,8 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 const game1 = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const score = Number(req.params.score);
+    const userId = req.body.userId;
+    const score = Number(req.body.score);
     console.log(1);
     const query = 'SELECT score FROM game1 WHERE user_id = :userId';
     const result = await sequelize.query(query, {
@@ -30,7 +29,7 @@ const game1 = async (req, res) => {
         },
         type: Sequelize.QueryTypes.INSERT
       });
-      return res.status(200).send("insert 성공");
+      return res.status(200).send("OK");
     } else if (nowScore.score < score) {
       const updateQuery = 'UPDATE game1 SET score = :score WHERE user_id = :userId';
       await sequelize.query(updateQuery, {
@@ -40,19 +39,19 @@ const game1 = async (req, res) => {
         },
         type: Sequelize.QueryTypes.UPDATE
       });
-      return res.status(200).send("update 성공");
+      return res.status(200).send("OK");
     } else {
-      return res.status(200).send("변화 없음");
+      return res.status(200).send("OK");
     }
   } catch (error) {
-    return res.status(202).send(error);
+    return res.status(400).send(error);
   }
 }
 
 const game2 = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const score = Number(req.params.score);
+    const userId = req.body.userId;
+    const score = Number(req.body.score);
     console.log(1);
     const query = 'SELECT score FROM game2 WHERE user_id = :userId';
     const result = await sequelize.query(query, {
@@ -73,7 +72,7 @@ const game2 = async (req, res) => {
         },
         type: Sequelize.QueryTypes.INSERT
       });
-      return res.status(200).send("insert 성공");
+      return res.status(200).send("OK");
     } else if (nowScore.score < score) {
       const updateQuery = 'UPDATE game2 SET score = :score WHERE user_id = :userId';
       await sequelize.query(updateQuery, {
@@ -83,12 +82,12 @@ const game2 = async (req, res) => {
         },
         type: Sequelize.QueryTypes.UPDATE
       });
-      return res.status(200).send("update 성공");
+      return res.status(200).send("OK");
     } else {
-      return res.status(200).send("변화 없음");
+      return res.status(200).send("OK");
     }
   } catch (error) {
-    return res.status(202).send(error);
+    return res.status(400).send(error);
   }
 }
 
