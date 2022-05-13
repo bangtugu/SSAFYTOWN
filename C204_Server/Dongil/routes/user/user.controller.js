@@ -5,6 +5,23 @@ const config = require('../../config/config')[env];
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
+const crypto = require("crypto");
+require('dotenv').config();
+const privateKey = process.env.RSA_PRIVATE_KEY.replace(/\\n/g, '\n');
+const publicKey = process.env.RSA_PUBLIC_KEY.replace(/\\n/g, '\n');
+
+encodeRSA = (text) => {
+  const buffer = Buffer.from(text);
+  const encrypted = crypto.publicEncrypt(publicKey, buffer);
+  return encrypted.toString("hex");
+}
+
+decodeRSA = (text) => {
+  const buffer = Buffer.from(text, "hex");
+  const decrypted = crypto.privateDecrypt(privateKey, buffer);
+  return decrypted.toString("utf8");
+}
+
 const idValidation = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -39,11 +56,13 @@ const signup = async (req, res) => {
     }
 
     if (userId && password && name && gender) {
-      const query = 'INSERT INTO users VALUES(NULL, :userId, :password, :name, :gender)';
+      const encryptedPassword = encodeRSA(password); //public key를 사용해 암호화한 값을 서버로 전송한다
+
+      const query = 'INSERT INTO users VALUES(NULL, :userId, :encryptedPassword, :name, :gender)';
       const result = await sequelize.query(query, {
         replacements: {
           userId: userId,
-          password: password,
+          encryptedPassword: encryptedPassword,
           name: name,
           gender: gender
         },
@@ -73,9 +92,10 @@ const login = async (req, res) => {
     });
 
     const sqlPassword = result[0].password;
+    const decryptedPassword = decodeRSA(sqlPassword); //서버에서 값을 private key를 이용해 복호화한다.
     const id = result[0].id;
 
-    if (sqlPassword === password) {
+    if (decryptedPassword === password) {
       return res.status(200).send({ id: id });
     } else {
       return res.status(400).send("ID/PW를 확인해주세요");
