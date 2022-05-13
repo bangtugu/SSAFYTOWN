@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const { Game1, Game2 } = require("../../models");
 
 const env = process.env.NODE_ENV || 'production';
 const config = require('../../config/config')[env];
@@ -17,7 +16,7 @@ const game1 = async (req, res) => {
     if (result[0] !== undefined) {
       return res.status(200).send(result);
     } else {
-      return res.status(201).send("기록이 없습니다");
+      return res.status(204).send(result);
     }
   } catch (error) {
     return res.status(202).send(error);
@@ -35,10 +34,10 @@ const game2 = async (req, res) => {
     if (result[0] !== undefined) {
       return res.status(200).send(result);
     } else {
-      return res.status(201).send("기록이 없습니다");
+      return res.status(204).send(null);
     }
   } catch (error) {
-    return res.status(202).send(error);
+    return res.status(400).send(error);
   }
 }
 
