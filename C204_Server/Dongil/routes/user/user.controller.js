@@ -74,9 +74,10 @@ const login = async (req, res) => {
 
     const sqlPassword = result[0].password;
     const id = result[0].id;
+    const name = result[0].username;
 
     if (sqlPassword === password) {
-      return res.status(200).send({ id: id });
+      return res.status(200).send({ id: id, username: name });
     } else {
       return res.status(400).send("ID/PW를 확인해주세요");
     }

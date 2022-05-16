@@ -44,6 +44,9 @@ wsService.on("connection", socket => {
         userList[transformVO.socketId].position = transformVO.position; //해당 user의 포지션을 클라이언트에서온 position으로 변경해줍니다.
         userList[transformVO.socketId].rotation = transformVO.rotation;
         userList[transformVO.socketId].animation = transformVO.animation;
+        userList[transformVO.socketId].scenename = transformVO.scenename;
+        userList[transformVO.socketId].characternumber = transformVO.characternumber;
+        userList[transformVO.socketId].username = transformVO.username;
       }
       return;
     }
@@ -56,7 +59,10 @@ function connectUser(socket) {
   let sendData = {
     socketId: socket.id,
     position: Vector3.zero,
-    rotation: 0,
+    // rotation: 0,
+    // characternumber: 0,
+    // userid: '',
+    // scenenumber: 0,
   };
   //해당 소켓의 클라이언트에게 connect란 메시지를 보냅니다.
   socket.send(JSON.stringify({ type: "CONNECT", payload: JSON.stringify(sendData) }));
