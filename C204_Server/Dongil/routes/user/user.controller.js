@@ -64,7 +64,7 @@ const login = async (req, res) => {
   try {
     const userId = req.body.userId;
     const password = req.body.password;
-    const query = 'SELECT password, id FROM users WHERE user_id = :userId';
+    const query = 'SELECT password, id,  FROM users WHERE user_id = :userId';
     const result = await sequelize.query(query, {
       replacements: {
         userId: userId
@@ -74,7 +74,7 @@ const login = async (req, res) => {
 
     const sqlPassword = result[0].password;
     const id = result[0].id;
-    const name = result[0].username;
+    const name = result[0].name;
 
     if (sqlPassword === password) {
       return res.status(200).send({ username: name });
