@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
-    //½Ì±ÛÅæ
+    //ï¿½Ì±ï¿½ï¿½ï¿½
     private static NetworkManager _instance;
     public static NetworkManager Instance
     {
@@ -12,28 +12,28 @@ public class NetworkManager : MonoBehaviour
         set => _instance = value;
     }
 
-    private int socketId = 0; //ÇöÀç ³ªÀÇ id
+    private int socketId = 0; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ id
 
     [SerializeField]
-    private Player playerPrefab; //ÇÃ·¹ÀÌ¾î ÇÁ¸®ÆÕ
+    private Player playerPrefab; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    public object lockObj = new object(); //lockÀ» À§ÇÑ object º¯¼ö
+    public object lockObj = new object(); //lockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ object ï¿½ï¿½ï¿½ï¿½
 
-    //µ¥ÀÌÅÍ¸¦ ¹Þ¾ÆÁÙ º¯¼öµé
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private TransformVO connectVO = null;
     private List<TransformVO> refreshList = null;
 
     private bool isConnectRefresh = false;
     private bool isUserRefresh = false;
 
-    private Dictionary<int, Player> playerList = new Dictionary<int, Player>(); //³ª¸¦ Á¦¿ÜÇÑ »ç¶÷µéÀÌ µé¾î°¥ µñ¼Å³Ê¸®
+    private Dictionary<int, Player> playerList = new Dictionary<int, Player>(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½Å³Ê¸ï¿½
 
     private void Awake()
     {
         Instance = this;
     }
 
-    //¿Âµ¥ÀÌÅÍµéÀ» ÀúÀåÇÏ°í Ã³¸®ÇØÁà¾ß ÇÒ ÀÏÀ» ÇØÁÝ´Ï´Ù.
+    //ï¿½Âµï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý´Ï´ï¿½.
     public static void ConnectUser(TransformVO vo)
     {
         lock (Instance.lockObj)
@@ -43,7 +43,7 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    //¿Âµ¥ÀÌÅÍµéÀ» ÀúÀåÇÏ°í Ã³¸®ÇØÁà¾ß ÇÒ ÀÏÀ» ÇØÁÝ´Ï´Ù.
+    //ï¿½Âµï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý´Ï´ï¿½.
     public static void RefreshUser(List<TransformVO> list)
     {
         lock (Instance.lockObj)
@@ -69,43 +69,43 @@ public class NetworkManager : MonoBehaviour
 
     private void UserConnect()
     {
-        socketId = connectVO.socketId; //socketId ¼¼ÆÃÇØÁÖ°í
+        socketId = connectVO.socketId; //socketId ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
 
-        Player p = Instantiate(playerPrefab, transform); // ÀÚ½ÅÀÇ ÇÃ·¹ÀÌ¾î¸¦ »ý¼ºÇØÁÝ´Ï´Ù.
-        p.InitPlayer(connectVO, false); //ÃÊ±âÈ­ ÇØÁÝ´Ï´Ù.
+        Player p = Instantiate(playerPrefab, transform); // ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´Ï´ï¿½.
+        p.InitPlayer(connectVO, false); //ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½Ý´Ï´ï¿½.
     }
     private void UserRefresh()
     {
         foreach (TransformVO vo in refreshList)
         {
-            if (vo.socketId != socketId) //³ª¿Í ´Ù¸¥ ¼ÒÄÏÀÌ¶ó¸é
+            if (vo.socketId != socketId) //ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½
             {
                 Player p = null;
 
                 if (playerList.TryGetValue(vo.socketId, out p))
                 {
-                    p.SetTransform(vo.position); //ÀÖÀ¸¸é À§Ä¡¸¸ ³Ö¾îÁÖ±â
+                    p.SetTransform(vo.position); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
                 }
                 else
                 {
-                    p = MakeRemotePlayer(vo); //remoteÇÃ·¹ÀÌ¾î »ý¼º
+                    p = MakeRemotePlayer(vo); //remoteï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
                 }
             }
             else
             {
-                //³» µ¥ÀÌÅÍÀÏ °æ¿ì
+                //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             }
         }
     }
 
-    public Player MakeRemotePlayer(TransformVO vo) //´Ù¸¥ »ç¶÷ÀÌ ¿¬°áÇßÀ»¶§ »ý¼ºÇØÁÖ±â À§ÇÑ ÇÔ¼ö
+    public Player MakeRemotePlayer(TransformVO vo) //ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     {
-        Player rpc = Instantiate(playerPrefab, transform); //ÇÃ·¹ÀÌ¾î »ý¼º
+        Player rpc = Instantiate(playerPrefab, transform); //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        rpc.InitPlayer(vo, true); //ÃÊ±âÈ­
-        rpc.SetTransform(vo.position); //target ¼³Á¤
+        rpc.InitPlayer(vo, true); //ï¿½Ê±ï¿½È­
+        rpc.SetTransform(vo.position); //target ï¿½ï¿½ï¿½ï¿½
 
-        playerList.Add(vo.socketId, rpc); //playerList¿¡ Ãß°¡ÇØÁØ´Ù.
+        playerList.Add(vo.socketId, rpc); //playerListï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
         return rpc;
     }
 }

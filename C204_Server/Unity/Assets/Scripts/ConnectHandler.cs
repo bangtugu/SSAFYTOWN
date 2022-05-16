@@ -7,7 +7,7 @@ public class ConnectHandler : MonoBehaviour, IMsgHandler
     public void HandleMsg(string payload)
     {
         Debug.Log("test");
-        TransformVO vo = JsonUtility.FromJson<TransformVO>(payload); //jsonÀ¸·Î ¿Â µ¥ÀÌÅÍ¸¦ TransformVOÀÇ ÇüÅÂ·Î ¹Þ¾ÆÁØ´Ù
-        NetworkManager.ConnectUser(vo); //NetworkManager¿¡ ÀÖ´Â ConnectUser¸¦ ½ÇÇà½ÃÄÑÁÝ´Ï´Ù
+        TransformVO vo = JsonUtility.FromJson<TransformVO>(payload); //jsonï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ TransformVOï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½Þ¾ï¿½ï¿½Ø´ï¿½
+        NetworkManager.ConnectUser(vo); //NetworkManagerï¿½ï¿½ ï¿½Ö´ï¿½ ConnectUserï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´Ï´ï¿½
     }
 }

@@ -1,4 +1,4 @@
-[System.Serializable] //Á÷·ÄÈ­
+[System.Serializable] //ï¿½ï¿½ï¿½ï¿½È­
 public class DataVO
 {
     public string type;

@@ -6,7 +6,7 @@ public class RefreshHandler : MonoBehaviour, IMsgHandler
 {
     public void HandleMsg(string payload)
     {
-        TransformListVO vo = JsonUtility.FromJson<TransformListVO>(payload); //jsonÀ¸·Î ¿Â µ¥ÀÌÅÍ¸¦ TransformListVOÀÇ ÇüÅÂ·Î ¹Þ¾ÆÁØ´Ù
-        NetworkManager.RefreshUser(vo.dataList); //NetworkManager¿¡ ÀÖ´Â RefreshUSer¸¦ ½ÇÇà½ÃÄÑÁÝ´Ï´Ù
+        TransformListVO vo = JsonUtility.FromJson<TransformListVO>(payload); //jsonï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ TransformListVOï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½Þ¾ï¿½ï¿½Ø´ï¿½
+        NetworkManager.RefreshUser(vo.dataList); //NetworkManagerï¿½ï¿½ ï¿½Ö´ï¿½ RefreshUSerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´Ï´ï¿½
     }
 }
