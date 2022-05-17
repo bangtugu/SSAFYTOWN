@@ -4,7 +4,7 @@ class Vector3 {
     this.y = y;
     this.z = z;
   }
-  static zero = new Vector3(70, 2, -57);
+  static zero = new Vector3(-60, 0, 55);
 }
 
 module.exports = Vector3;

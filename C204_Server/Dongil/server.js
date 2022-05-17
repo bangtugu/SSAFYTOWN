@@ -59,7 +59,7 @@ function connectUser(socket) {
   let sendData = {
     socketId: socket.id,
     position: Vector3.zero,
-    // rotation: 0,
+    rotation: 95,
     // characternumber: 0,
     // userid: '',
     // scenenumber: 0,
