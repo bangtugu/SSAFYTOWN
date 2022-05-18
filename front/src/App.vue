@@ -13,9 +13,9 @@
       <section ref="div1">
         <v-parallax :src="imageLink.sub_main" height="600">
           <v-layout column align-center justify-center class="white--text">
-            <h1 class="white--text mb-2 display-1 text-xs-center" style="font-weight: 900; text-shadow: 3px 2px #000000">SSAFY TOWN에 오신 것을 환영합니다</h1>
-            <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #000000">게임을 즐기시려면 다운로드를 눌러주세요</div>
-            <v-btn class="blue lighten-2 mt-5" dark large>
+            <h1 class="white--text mb-2 display-1 text-xs-center" style="font-weight: 1000; text-shadow: 3px 2px #000000">SSAFY TOWN에 오신 것을 환영합니다</h1>
+            <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 1000; text-shadow: 2px 2px #000000">게임을 즐기시려면 다운로드를 눌러주세요</div>
+            <v-btn class="blue lighten-2 mt-5" dark large href="/">
               DOWNLOAD
             </v-btn>
           </v-layout>
@@ -31,9 +31,9 @@
         >
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
-              <h2 class="headline">The best way to share your amazing stuff</h2>
+              <h2 class="headline">SSAFY TOWN으로 모여라!</h2>
               <span class="subheading">
-                No more restrictions, no more limits
+                미니게임을 통해 친구/동기들과 경쟁해보세요
               </span>
             </div>
           </v-flex>
@@ -43,39 +43,39 @@
                 <v-flex xs12 md4>
                   <v-card class="elevation-0 transparent">
                     <v-card-text class="text-xs-center">
-                      <v-icon x-large class="blue--text text--lighten-2">public</v-icon>
+                      <v-icon x-large class="blue--text text--lighten-2">Familiarity</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">Reach the world</div>
+                      <div class="headline text-xs-center">익숙함</div>
                     </v-card-title>
                     <v-card-text>
-                      Show your stuff to the whole community of Endorfine not only to your mum or your friends. We love making good content viral. In this moment Endorfine is used by artists who are not famous but that want to share their works to the world. Unfortunately with other social networks this is hard, slow and sometime expensive.
+                      성인이 된 이후에는 좀처럼 다같이 모이기가 힘든 동네친구들과도
                     </v-card-text>
                   </v-card>
                 </v-flex>
                 <v-flex xs12 md4>
                   <v-card class="elevation-0 transparent">
                     <v-card-text class="text-xs-center">
-                      <v-icon x-large class="blue--text text--lighten-2">flash_on</v-icon>
+                      <v-icon x-large class="blue--text text--lighten-2">Friendliness</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline">Fast feedback</div>
+                      <div class="headline">친근함</div>
                     </v-card-title>
                     <v-card-text>
-                      Time is important, we don't want you to waste it. Here you can get a massive feedback from real users in minutes. And if your stuff is appreciated you won't only get positive feedback but also lovely and sincere fans
+                      1년동안 같이 했지만 아직 한번도 만나지 못해본 SSAFY 동기들과도
                     </v-card-text>
                   </v-card>
                 </v-flex>
                 <v-flex xs12 md4>
                   <v-card class="elevation-0 transparent">
                     <v-card-text class="text-xs-center">
-                      <v-icon x-large class="blue--text text--lighten-2">share</v-icon>
+                      <v-icon x-large class="blue--text text--lighten-2">Memories</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">Create new connections</div>
+                      <div class="headline text-xs-center">추억</div>
                     </v-card-title>
                     <v-card-text>
-                      Imagine if you can directly speak with the world's population. Don't you think it would be easier to find nice people to interact with? Endorfine is both local and global and help you to connect without limitations with people from your city, your state and your universe! 
+                      이곳 SSAFY TOWN에서 처음 만난 새로운 사람들과도
                     </v-card-text>
                   </v-card>
                 </v-flex>
@@ -99,8 +99,8 @@
       <section>
         <v-parallax :src="imageLink.main" height="380">
           <v-layout column align-center justify-center>
-            <div class="headline white--text mb-3 text-xs-center">Endorfine is a social network that allows everyone to reach a huge audience with a tap </div>
-            <em>With the power of Endorfine you don't need to be famous or post pics of cute cats in order to get visibility</em>
+            <div class="headline white--text mb-3 text-xs-center">친구들이 SSAFY TOWN에서 당신을 기다리고 있습니다</div>
+            <em>아래 다운로드를 눌러 게임에 접속하세요</em>
             <v-btn class="blue lighten-2 mt-5" dark large>
               DOWNLOAD
             </v-btn>
@@ -113,9 +113,14 @@
 
           <v-layout row wrap>
           <v-flex xs12 text-xs-center class="mt-5">
-           <div class="headline">Are you amazed? Stay tuned!</div>
+           <div class="headline">Unity 3D 월드 구현</div>
            <br>
-          <div>We are lunching the beta in a few time. If you want to be one of the first Endorfine users we will email you as soon as we're ready. In the beginning only few people will test before the launch. Let us know how Endorfine will help you!</div>
+          <div>
+            20개의 캐릭터를 자유롭게 선택하여 접속할 수 있습니다.
+          </div>
+          <div>
+            주택단지, 중심상가가 구성되어 있고 특정 건물 내부로 이동해 미니게임을 즐길 수 있습니다.
+          </div> 
           </v-flex>
           <v-flex xs8 offset-xs2>
 
@@ -132,9 +137,9 @@
       </section>
 
       <section>
-        <v-parallax :src="imageLink.social_cover" height="380">
+        <v-parallax :src="imageLink.cover" height="380">
           <v-layout column align-center justify-center>
-            <div class="headline white--text mb-3 text-xs-center">We are dropping cool news and opportunities on socials</div>
+            <div class="headline white--text mb-3 text-xs-center">구체적인 기능들이 궁금하신가요?</div>
           </v-layout>
         </v-parallax>
       </section>
@@ -145,20 +150,20 @@
             <v-flex xs12 sm4>
               <v-card class="elevation-0 transparent">
                 <v-card-title primary-title class="layout justify-center">
-                  <div class="headline">Company info</div>
+                  <div class="headline">채팅 시스템</div>
                 </v-card-title>
                 <v-card-text>
-                  We are not a company. We hate companies. Just imagine us like the guys from the Silicon Valley series. 
+                  친구들과 채팅으로 대화하며 게임을 즐길 수 있습니다.
                 </v-card-text>
               </v-card>
             </v-flex>
             <v-flex xs12 sm4 offset-sm1>
               <v-card class="elevation-0 transparent">
                 <v-card-title primary-title class="layout justify-center">
-                  <div class="headline">We are hiring</div>
+                  <div class="headline">랭킹 보드</div>
                 </v-card-title>
                 <v-card-text>
-                  Are you a creative person? Do you like techy stuff? Complete the email form by writing your skills and interests
+                  게임별로 누구의 랭킹이 더 높은지 서로 경쟁해보세요.
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -206,17 +211,17 @@ export default {
   name: "App",
   data: function() {
     return {
-      title: "SSAFY TOWN",
+      title: "_SSAFY TOWN_",
       imageLink: {
         main:
           "https://firebasestorage.googleapis.com/v0/b/endorfinevue.appspot.com/o/assets%2Fb13f0434-b228-11e6-8e5d-5252025056ab_web_scale_0.4666667_0.4666667__.jpg?alt=media&token=660df23e-599e-434b-9313-ba69c973eeea",
         sub_main:
-          "https://firebasestorage.googleapis.com/v0/b/endorfinevue.appspot.com/o/assets%2FNight-Club-Clubbing-Jobs-Abroad2.jpg?alt=media&token=82bbda7d-5df4-430b-9217-adaf1c8485c5",
+          require(`@/assets/e.jpg`),
         logo:
-          "https://firebasestorage.googleapis.com/v0/b/endorfinevue.appspot.com/o/assets%2Fandroid-chrome-512x512.png?alt=media&token=8a0a66f6-4741-4ff6-8f28-eb9ec74374df",
-        social_cover:
-          "https://firebasestorage.googleapis.com/v0/b/endorfinevue.appspot.com/o/assets%2Fo-NIGHTCLUB-facebook.jpg?alt=media&token=cefc5c4c-9714-41da-9c22-f63caf5e89a4"
-      },
+          require(`@/assets/logo.png`),
+        cover:
+          require(`@/assets/a.jpg`)
+        },
       
       items: [
         {
@@ -232,6 +237,9 @@ export default {
         {
           src:
             "https://www.vigamusmagazine.com/wp-content/uploads/2019/11/half-life-alyx.jpg"
+        },
+        {
+          src: require(`@/assets/b.jpg`)
         }
       ]
     };
@@ -268,6 +276,13 @@ export default {
 
 .social-icon {
   font-size: 21px;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+a:link {
   color: white;
 }
 </style>
