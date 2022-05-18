@@ -85,4 +85,4 @@ setInterval(() => {
   wsService.clients.forEach(soc => {
     soc.send(JSON.stringify({ type: "REFRESH", payload: JSON.stringify({ dataList }) }));
   });
-}, 100);
+}, 16);
