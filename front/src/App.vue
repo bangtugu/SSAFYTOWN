@@ -15,7 +15,7 @@
           <v-layout column align-center justify-center class="white--text">
             <h1 class="white--text mb-2 display-1 text-xs-center" style="font-weight: 1000; text-shadow: 3px 2px #000000">SSAFY TOWN에 오신 것을 환영합니다</h1>
             <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 1000; text-shadow: 2px 2px #000000">게임을 즐기시려면 다운로드를 눌러주세요</div>
-            <v-btn class="blue lighten-2 mt-5" dark large>
+            <v-btn class="blue lighten-2 mt-5" dark large href="/">
               DOWNLOAD
             </v-btn>
           </v-layout>
@@ -31,9 +31,9 @@
         >
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
-              <h2 class="headline">학교의 분위기를 살린 메타버스 플랫폼</h2>
+              <h2 class="headline">SSAFY TOWN으로 모여라!</h2>
               <span class="subheading">
-                간단한 게임들로 친구들과 시간을 보내보세요
+                미니게임을 통해 친구/동기들과 경쟁해보세요
               </span>
             </div>
           </v-flex>
@@ -46,10 +46,10 @@
                       <v-icon x-large class="blue--text text--lighten-2">Familiarity</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">신입생에게는 익숙함을</div>
+                      <div class="headline text-xs-center">익숙함</div>
                     </v-card-title>
                     <v-card-text>
-                      아직은 어색할 수 있는 학교의 분위기를 빨리 적응하기 위해 온라인에서도 학교의 느낌을 경험할 수 있어요.
+                      성인이 된 이후에는 좀처럼 다같이 모이기가 힘든 동네친구들과도
                     </v-card-text>
                   </v-card>
                 </v-flex>
@@ -59,10 +59,10 @@
                       <v-icon x-large class="blue--text text--lighten-2">Friendliness</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline">재학생에게는 친근함을</div>
+                      <div class="headline">친근함</div>
                     </v-card-title>
                     <v-card-text>
-                      딱딱하고 지루하게만 느껴질 수 있는 학교가 친구들과 재미있는 시간을 보낼 수 있는 공간으로 재탄생했어요.
+                      1년동안 같이 했지만 아직 한번도 만나지 못해본 SSAFY 동기들과도
                     </v-card-text>
                   </v-card>
                 </v-flex>
@@ -72,10 +72,10 @@
                       <v-icon x-large class="blue--text text--lighten-2">Memories</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">졸업생에게는 옛 추억을</div>
+                      <div class="headline text-xs-center">추억</div>
                     </v-card-title>
                     <v-card-text>
-                      친구들과 함께 들어온다면 학교를 졸업하고는 까맣게 잊혀졌던 그때의 기억들이 되살아 날 거예요.
+                      이곳 SSAFY TOWN에서 처음 만난 새로운 사람들과도
                     </v-card-text>
                   </v-card>
                 </v-flex>
@@ -113,9 +113,14 @@
 
           <v-layout row wrap>
           <v-flex xs12 text-xs-center class="mt-5">
-           <div class="headline">무슨 게임들이 있나요?</div>
+           <div class="headline">Unity 3D 월드 구현</div>
            <br>
-          <div>현재 슈팅게임, 퍼즐버블, 2인배구가 제작되어 있습니다. 추후 다른 게임들도 업데이트될 예정입니다.</div>
+          <div>
+            20개의 캐릭터를 자유롭게 선택하여 접속할 수 있습니다.
+          </div>
+          <div>
+            주택단지, 중심상가가 구성되어 있고 특정 건물 내부로 이동해 미니게임을 즐길 수 있습니다.
+          </div> 
           </v-flex>
           <v-flex xs8 offset-xs2>
 
@@ -271,6 +276,13 @@ export default {
 
 .social-icon {
   font-size: 21px;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+a:link {
   color: white;
 }
 </style>
