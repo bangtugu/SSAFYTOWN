@@ -84,7 +84,7 @@
           </v-flex>
         </v-layout>
         <v-container ref="div2">
-          <v-carousel hide-delimiters>
+          <v-carousel :cycle="true" :interval="10000" hide-delimiters>
             <v-carousel-item
               v-for="(item,i) in items"
               :key="i"
@@ -153,7 +153,7 @@
                   <div class="headline">채팅 시스템</div>
                 </v-card-title>
                 <v-card-text>
-                  친구들과 채팅으로 대화하며 게임을 즐길 수 있습니다.
+                  채팅으로 대화하며 싸피타운을 돌아다닐 수 있습니다.
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -220,26 +220,18 @@ export default {
         logo:
           require(`@/assets/logo.png`),
         cover:
-          require(`@/assets/a.jpg`)
+          require(`@/assets/z.gif`)
         },
       
       items: [
         {
-          src: "https://images4.alphacoders.com/601/thumb-1920-601157.jpg"
+          src: require(`@/assets/s.gif`)
         },
         {
-          src: "https://images5.alphacoders.com/710/thumb-1920-710789.jpg"
+          src: require(`@/assets/p.gif`)
         },
         {
-          src:
-            "https://www.senzalinea.it/giornale/wp-content/uploads/2020/06/Destroy-All-Humans-Remake-Preview-01-Header-2060x982-1.jpg"
-        },
-        {
-          src:
-            "https://www.vigamusmagazine.com/wp-content/uploads/2019/11/half-life-alyx.jpg"
-        },
-        {
-          src: require(`@/assets/b.jpg`)
+          src: require(`@/assets/v.gif`)
         }
       ]
     };
