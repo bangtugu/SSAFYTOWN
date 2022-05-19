@@ -85,6 +85,9 @@ docker push [docker아이디]/[레포지토리]:tag명
 ~/S06P31C204/C204_Server/Dongil$ pm2 start server.js
 ~/S06P31C204/C204_Server/Dongil$ pm2 start app.js
 ~/S06P31C204/C204_Server/Dongil$ pm2 start router.js
+
+anyway$ pm2 status
+3개 서버 모두 잘 실행되고 있다면 실행 완료
 ```
 
 
@@ -110,7 +113,7 @@ docker push [docker아이디]/[레포지토리]:tag명
 
 Assets/01_Scenes/UI 의 Login_SignUp scene에서 DataManager Object 하위 Object SocketClient 선택
 
-우측 Inspector 탭에서 Url, Port를 현재 배포자가 구동시킨 서버와 맞게 설정한다.
+우측 Inspector 탭에서 Url, Port를 현재 배포자가 구동시킨 서버와 맞게 설정합니다.
 
 ![image-20220519152334291](README.assets/image-20220519152334291.png)
 
@@ -118,8 +121,18 @@ Assets/01_Scenes/UI 의 Login_SignUp scene에서 DataManager Object 하위 Objec
 
 ![image-20220519152420616](README.assets/image-20220519152420616.png)
 
-Muiltitest를 제외한 모든 Scene을 체크해준 후 빌드한다.
+Muiltitest를 제외한 모든 Scene을 체크해준 후 빌드합니다.
 
 ![image-20220519152505382](README.assets/image-20220519152505382.png)
 
-빌드된 경로의 SsafyTown_Project.exe 파일을 통해 클라이언트를 실행시킨다.
+빌드된 경로의 SsafyTown_Project.exe 파일을 통해 클라이언트를 실행시킵니다.
+
+
+
+
+
+
+
+빌드된 파일을 구글클라우드 등의 서비스를 이용하여 다운로드 받을 수 있도록 준비하고, 
+
+FE 웹페이지 버튼과 다운로드 링크를 연결시켜서 유저가 클라이언트를 다운로드 받을 수 있도록 합니다.
