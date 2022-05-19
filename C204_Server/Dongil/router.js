@@ -1,14 +1,15 @@
 // 초기설정.
 
-const express = require('express'); const app = express();
-// app.use("/", (req, res)=>{ res.sendFile('./index.html')});
+const express = require('express');
+const app = express();
+app.use("/", (req, res) => { res.sendFile('./index.html') });
 
-const HTTPServer = app.listen(3000, () => { console.log("Server is open at port:3000"); });
+const serverPort = app.listen(8000, () => { console.log("Server is open at port:8000"); });
 
-const wsModule = require('ws');
-const webSocketServer = new wsModule.Server(
+const WebSocket = require('ws');
+const wsService = new WebSocket.Server(
     {
-        server: HTTPServer
+        server: serverPort
     });
 
 
@@ -19,7 +20,7 @@ function SendMessageAll(message) {
     clients.forEach(ws => ws.send(message));
 }
 
-webSocketServer.on('connection', (ws, request) => {
+wsService.on('connection', (ws, request) => {
     // Request를 받으면, 접속 확인후 콘솔로그 뿌림.
     const ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
     console.log(`새로운 클라이언트[${ip}] 접속`);
