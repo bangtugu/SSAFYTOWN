@@ -7,11 +7,10 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 const game1 = async (req, res) => {
   try {
-    const query = 'SELECT *, RANK() OVER(ORDER BY score DESC) AS RANKING FROM game1';
+    const query = 'SELECT *, RANK() OVER(ORDER BY score DESC) AS RANKING FROM game1 LIMIT 3';
     const result = await sequelize.query(query, {
       type: Sequelize.QueryTypes.SELECT
     });
-    console.log(result[0]);
 
     if (result[0] !== undefined) {
       return res.status(200).send(result);
@@ -25,11 +24,10 @@ const game1 = async (req, res) => {
 
 const game2 = async (req, res) => {
   try {
-    const query = 'SELECT *, RANK() OVER(ORDER BY score DESC) AS RANKING FROM game2';
+    const query = 'SELECT *, RANK() OVER(ORDER BY score DESC) AS RANKING FROM game2 LIMIT 3';
     const result = await sequelize.query(query, {
       type: Sequelize.QueryTypes.SELECT
     });
-    console.log(result[0]);
 
     if (result[0] !== undefined) {
       return res.status(200).send(result);
