@@ -13,7 +13,7 @@ const game1 = async (req, res) => {
     });
 
     if (result[0] !== undefined) {
-      return res.status(200).send(result);
+      return res.status(200).send(JSON.stringify(result));
     } else {
       return res.status(204).send(result);
     }

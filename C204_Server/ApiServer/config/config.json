@@ -17,7 +17,7 @@
     "username": "ssafytown",
     "password": "ssafytown",
     "database": "ssafytown",
-    "host": "127.0.0.1",
+    "host": "k6c204.p.ssafy.io",
     "dialect": "mysql"
   }
 }
