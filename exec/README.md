@@ -10,17 +10,17 @@
 
 ### 외부 서비스
 
-- 이번 프로젝트에는 따로 가입이나 활용을 위한 정보가 필요한 외부 서비스를 사용하지 않았습니다.
+- 이번 프로젝트에는 따로 정보가 필요한 외부 서비스를 사용하지 않았습니다.
 
 
 
-### DB 덤프파일
+### [DB 덤프파일](https://lab.ssafy.com/s06-final/S06P31C204/-/tree/develop/exec/DB%20%EB%8D%A4%ED%94%84%ED%8C%8C%EC%9D%BC)
 
 
 
 
 
-### 시연 시나리오
+### [시연 시나리오](https://lab.ssafy.com/s06-final/S06P31C204/-/tree/develop/exec/%EC%8B%9C%EC%97%B0%20%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4)
 
 
 
