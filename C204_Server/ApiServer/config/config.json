@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "k420156",
+    "database": "nodejs",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "ssafytown",
+    "password": "ssafytown",
+    "database": "ssafytown",
+    "host": "k6c204.p.ssafy.io",
+    "dialect": "mysql"
+  }
+}
