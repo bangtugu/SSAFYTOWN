@@ -15,7 +15,7 @@
           <v-layout column align-center justify-center class="white--text">
             <h1 class="white--text mb-2 display-1 text-xs-center" style="font-weight: 1000; text-shadow: 3px 2px #000000">SSAFY TOWN에 오신 것을 환영합니다</h1>
             <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 1000; text-shadow: 2px 2px #000000">게임을 즐기시려면 다운로드를 눌러주세요</div>
-            <v-btn class="blue lighten-2 mt-5" dark large href="/">
+            <v-btn class="blue lighten-2 mt-5" dark large href="https://drive.google.com/file/d/1D8Pd1wZHMy59yZzmYNXuIhREdShTfvGr/view">
               DOWNLOAD
             </v-btn>
           </v-layout>
@@ -137,7 +137,7 @@
       </section>
 
       <section>
-        <v-parallax :src="imageLink.cover" height="380">
+        <v-parallax :src="imageLink.cover" height="500">
           <v-layout column align-center justify-center>
             <div class="headline white--text mb-3 text-xs-center">구체적인 기능들이 궁금하신가요?</div>
           </v-layout>
@@ -220,7 +220,7 @@ export default {
         logo:
           require(`@/assets/logo.png`),
         cover:
-          require(`@/assets/z.gif`)
+          require(`@/assets/y.gif`)
         },
       
       items: [
