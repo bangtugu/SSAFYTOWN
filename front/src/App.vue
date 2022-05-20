@@ -101,7 +101,7 @@
           <v-layout column align-center justify-center>
             <div class="headline white--text mb-3 text-xs-center">친구들이 SSAFY TOWN에서 당신을 기다리고 있습니다</div>
             <em>아래 다운로드를 눌러 게임에 접속하세요</em>
-            <v-btn class="blue lighten-2 mt-5" dark large>
+            <v-btn class="blue lighten-2 mt-5" dark large href="https://drive.google.com/file/d/1D8Pd1wZHMy59yZzmYNXuIhREdShTfvGr/view">
               DOWNLOAD
             </v-btn>
           </v-layout>
